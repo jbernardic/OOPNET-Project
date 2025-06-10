@@ -47,7 +47,7 @@ namespace WinForms
 
 
             var settings = SettingsManager.GetSettings();
-            if(settings.SelectedCategory == Category.Men)
+            if (settings.SelectedCategory == Category.Men)
             {
                 rbMale.Checked = true;
             }
@@ -62,7 +62,14 @@ namespace WinForms
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            SettingsManager.GetSettings().Save();
+            var msgForm = new MessageForm();
+            msgForm.ShowDialog();
+            if (msgForm.YesAnswer)
+            {
+                SettingsManager.GetSettings().Save();
+            }
+            else e.Cancel = true;
+
         }
 
         void FavouriteAdded(object? sender, ControlEventArgs e)
@@ -272,8 +279,8 @@ namespace WinForms
             if (_draggedPanel.Parent != targetPanel)
             {
                 targetPanel.Controls.Add(_draggedPanel);
-                
-                if(targetPanel == flPlayers)
+
+                if (targetPanel == flPlayers)
                 {
                     FavouriteRemovedByUser(_draggedPanel);
                 }
@@ -360,14 +367,49 @@ namespace WinForms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            UserSettings settings = SettingsManager.GetSettings();
-            settings.SelectedCategory = rbFemale.Checked ? Category.Women : Category.Men;
-            settings.SelectedLanguage = rbCroatian.Checked ? Language.Croatian : Language.English;
-            settings.FavouriteTeam = null;
-            settings.Save();
 
-            cbFavTeam.Items.Clear();
-            FillTeams();
+            var msgForm = new MessageForm();
+            msgForm.ShowDialog();
+            if (msgForm.YesAnswer)
+            {
+                UserSettings settings = SettingsManager.GetSettings();
+                settings.SelectedCategory = rbFemale.Checked ? Category.Women : Category.Men;
+                settings.SelectedLanguage = rbCroatian.Checked ? Language.Croatian : Language.English;
+                settings.FavouriteTeam = null;
+                settings.Save();
+
+                cbFavTeam.Items.Clear();
+                FillTeams();
+            }
+        }
+
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            PrintDocument printDoc = new PrintDocument();
+            printDoc.PrintPage += PrintPageHandler;
+
+            PrintPreviewDialog previewDialog = new PrintPreviewDialog
+            {
+                Document = printDoc
+            };
+
+            previewDialog.ShowDialog();
+        }
+
+        private void PrintPageHandler(object sender, PrintPageEventArgs e)
+        {
+            Bitmap bmp = new Bitmap(tabRankList.Width, tabRankList.Height);
+            tabRankList.DrawToBitmap(bmp, new Rectangle(0, 0, tabRankList.Width, tabRankList.Height));
+
+            float scale = Math.Min(
+                (float)e.MarginBounds.Width / bmp.Width,
+                (float)e.MarginBounds.Height / bmp.Height);
+
+            int printWidth = (int)(bmp.Width * scale);
+            int printHeight = (int)(bmp.Height * scale);
+
+            e.Graphics?.DrawImage(bmp, e.MarginBounds.Left, e.MarginBounds.Top, printWidth, printHeight);
         }
     }
 }

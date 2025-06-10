@@ -52,6 +52,7 @@
             rbFemale = new RadioButton();
             rbMale = new RadioButton();
             label6 = new Label();
+            btnPrint = new Button();
             tabControl1.SuspendLayout();
             tabPlayers.SuspendLayout();
             tabRankList.SuspendLayout();
@@ -159,6 +160,7 @@
             // 
             // tabRankList
             // 
+            tabRankList.Controls.Add(btnPrint);
             tabRankList.Controls.Add(label5);
             tabRankList.Controls.Add(label4);
             tabRankList.Controls.Add(flMatchRankList);
@@ -174,7 +176,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(406, 9);
+            label5.Location = new Point(406, 26);
             label5.Name = "label5";
             label5.Size = new Size(72, 15);
             label5.TabIndex = 3;
@@ -183,7 +185,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(6, 9);
+            label4.Location = new Point(6, 26);
             label4.Name = "label4";
             label4.Size = new Size(70, 15);
             label4.TabIndex = 2;
@@ -192,16 +194,16 @@
             // 
             // flMatchRankList
             // 
-            flMatchRankList.Location = new Point(406, 27);
+            flMatchRankList.Location = new Point(406, 44);
             flMatchRankList.Name = "flMatchRankList";
-            flMatchRankList.Size = new Size(356, 348);
+            flMatchRankList.Size = new Size(356, 331);
             flMatchRankList.TabIndex = 1;
             // 
             // flPlayerRankList
             // 
-            flPlayerRankList.Location = new Point(6, 27);
+            flPlayerRankList.Location = new Point(6, 44);
             flPlayerRankList.Name = "flPlayerRankList";
-            flPlayerRankList.Size = new Size(356, 345);
+            flPlayerRankList.Size = new Size(356, 328);
             flPlayerRankList.TabIndex = 0;
             // 
             // tabSettings
@@ -304,6 +306,16 @@
             label6.Text = "Settings";
             label6.TextAlign = ContentAlignment.TopCenter;
             // 
+            // btnPrint
+            // 
+            btnPrint.Location = new Point(6, 3);
+            btnPrint.Name = "btnPrint";
+            btnPrint.Size = new Size(75, 23);
+            btnPrint.TabIndex = 4;
+            btnPrint.Text = "Print";
+            btnPrint.UseVisualStyleBackColor = true;
+            btnPrint.Click += btnPrint_Click;
+            // 
             // AppForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -354,5 +366,6 @@
         private RadioButton rbFemale;
         private RadioButton rbMale;
         private Label label6;
+        private Button btnPrint;
     }
 }
