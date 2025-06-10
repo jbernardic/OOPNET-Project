@@ -3,18 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using static DataLayer.UserSettings;
 
 namespace DataLayer.Repository
 {
-    public class ApiRepository : Repository
+    public class ApiRepository(Category category) : Repository(category)
     {
 
-        private static string CategoryToString(Category category)
+        private string CategoryToString()
         {
-            return category switch
+            return Category switch
             {
                 Category.Men => "men",
                 Category.Women => "women",
@@ -22,15 +24,22 @@ namespace DataLayer.Repository
             };
         }
 
-        private readonly HttpClient httpClient = new();
-
-        public override async Task<List<Match>?> GetMatches(Category category, string? fifaCode = null)
+        private readonly HttpClient httpClient = new()
         {
-            string url = $"https://worldcup-vua.nullbit.hr/{CategoryToString(category)}/matches";
+            Timeout = TimeSpan.FromSeconds(30),  // Crucial
+            DefaultRequestHeaders =
+            {
+                Accept = { new MediaTypeWithQualityHeaderValue("application/json") }
+            }
+        };
+
+        public override async Task<List<Match>?> GetMatches(string? fifaCode = null)
+        {
+            string url = $"https://worldcup-vua.nullbit.hr/{CategoryToString()}/matches";
 
             if(fifaCode != null)
             {
-                url += $"/country?fifa_code=${fifaCode}";
+                url += $"/country?fifa_code={fifaCode}";
             }
 
             try
@@ -43,10 +52,10 @@ namespace DataLayer.Repository
             }
         }
 
-        public override async Task<List<Result>?> GetResults(Category category)
+        public override async Task<List<Result>?> GetResults()
         {
 
-            string url = $"https://worldcup-vua.nullbit.hr/{CategoryToString(category)}/teams/results";
+            string url = $"https://worldcup-vua.nullbit.hr/{CategoryToString()}/teams/results";
 
             try
             {

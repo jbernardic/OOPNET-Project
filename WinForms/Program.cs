@@ -29,7 +29,7 @@ namespace WinForms
             }
 
 
-            Application.Run(new AppForm(settings));
+            Application.Run(new AppForm());
         }
     }
 }

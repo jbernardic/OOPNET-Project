@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Repository
 {
-    public class FileRepository : Repository
+    public class FileRepository(UserSettings.Category category) : Repository(category)
     {
-        public override Task<List<Match>?> GetMatches(Category category, string? fifaCode = null)
+        public override Task<List<Match>?> GetMatches(string? fifaCode = null)
         {
             throw new NotImplementedException();
         }
 
-        public override Task<List<Result>?> GetResults(Category category)
+        public override Task<List<Result>?> GetResults()
         {
             throw new NotImplementedException();
         }

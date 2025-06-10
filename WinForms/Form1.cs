@@ -15,7 +15,7 @@ namespace WinForms
         {
 
             UserSettings settings = SettingsManager.GetSettings();
-            settings.SelectedGender = rbFemale.Checked ? Gender.Female : Gender.Male;
+            settings.SelectedCategory = rbFemale.Checked ? Category.Women : Category.Men;
             settings.SelectedLanguage = rbCroatian.Checked ? Language.Croatian : Language.English;
             settings.Save();
             Close();

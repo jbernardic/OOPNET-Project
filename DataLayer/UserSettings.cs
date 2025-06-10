@@ -1,12 +1,14 @@
-﻿namespace DataLayer
+﻿using System.Linq;
+
+namespace DataLayer
 {
     public class UserSettings(string filePath)
     {
 
-        public enum Gender
+        public enum Category
         {
-            Male,
-            Female
+            Men,
+            Women
         }
 
         public enum Language
@@ -15,8 +17,10 @@
             English
         }
 
-        public Gender SelectedGender { get; set; } = Gender.Male;
+        public Category SelectedCategory { get; set; } = Category.Men;
         public Language SelectedLanguage { get; set; } = Language.Croatian;
+        public string? FavouriteTeam { get; set; } = null;
+        public HashSet<string> FavouritePlayers { get; set; } = [];
 
         public string FilePath { get; set; } = filePath;
 
@@ -35,16 +39,27 @@
                 var key = parts[0].Trim();
                 var value = parts[1].Trim();
 
-                if (key.Equals("Gender", StringComparison.OrdinalIgnoreCase) &&
-                    Enum.TryParse(value, out Gender gender))
+                if (key.Equals("Category", StringComparison.OrdinalIgnoreCase) &&
+                    Enum.TryParse(value, out Category category))
                 {
-                    SelectedGender = gender;
+                    SelectedCategory = category;
                 }
 
                 if (key.Equals("Language", StringComparison.OrdinalIgnoreCase) &&
                     Enum.TryParse(value, out Language language))
                 {
                     SelectedLanguage = language;
+                }
+
+                if (key.Equals("FavouriteTeam", StringComparison.OrdinalIgnoreCase))
+                {
+                    FavouriteTeam = value;
+                }
+
+                if(key.Equals("FavouritePlayers", StringComparison.OrdinalIgnoreCase))
+                {
+                    FavouritePlayers = [.. value.Split(",")];
+                    FavouritePlayers.Remove("");
                 }
             }
         }
@@ -53,8 +68,10 @@
         {
             var lines = new string[]
             {
-            $"Gender={SelectedGender}",
-            $"Language={SelectedLanguage}"
+            $"Category={SelectedCategory}",
+            $"Language={SelectedLanguage}",
+            $"FavouriteTeam={FavouriteTeam}",
+            $"FavouritePlayers={String.Join(",", FavouritePlayers)}"
             };
 
             File.WriteAllLines(FilePath, lines);
