@@ -32,16 +32,21 @@
             cbFavTeam = new ComboBox();
             tabControl1 = new TabControl();
             tabPlayers = new TabPage();
+            btnToPlayers = new Button();
+            btnToFav = new Button();
             label3 = new Label();
             flFavourites = new FlowLayoutPanel();
             flPlayers = new FlowLayoutPanel();
             label2 = new Label();
-            tabRangList = new TabPage();
+            tabRankList = new TabPage();
+            label4 = new Label();
+            flMatchRankList = new FlowLayoutPanel();
+            flPlayerRankList = new FlowLayoutPanel();
             tabSettings = new TabPage();
-            btnToFav = new Button();
-            btnToPlayers = new Button();
+            label5 = new Label();
             tabControl1.SuspendLayout();
             tabPlayers.SuspendLayout();
+            tabRankList.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -65,7 +70,7 @@
             // tabControl1
             // 
             tabControl1.Controls.Add(tabPlayers);
-            tabControl1.Controls.Add(tabRangList);
+            tabControl1.Controls.Add(tabRankList);
             tabControl1.Controls.Add(tabSettings);
             tabControl1.Location = new Point(12, 35);
             tabControl1.Name = "tabControl1";
@@ -88,6 +93,26 @@
             tabPlayers.TabIndex = 0;
             tabPlayers.Text = "Players";
             tabPlayers.UseVisualStyleBackColor = true;
+            // 
+            // btnToPlayers
+            // 
+            btnToPlayers.Location = new Point(539, 314);
+            btnToPlayers.Name = "btnToPlayers";
+            btnToPlayers.Size = new Size(75, 23);
+            btnToPlayers.TabIndex = 5;
+            btnToPlayers.Text = "<-";
+            btnToPlayers.UseVisualStyleBackColor = true;
+            btnToPlayers.Click += btnToPlayers_Click;
+            // 
+            // btnToFav
+            // 
+            btnToFav.Location = new Point(137, 314);
+            btnToFav.Name = "btnToFav";
+            btnToFav.Size = new Size(75, 23);
+            btnToFav.TabIndex = 4;
+            btnToFav.Text = "->";
+            btnToFav.UseVisualStyleBackColor = true;
+            btnToFav.Click += btnToFav_Click;
             // 
             // label3
             // 
@@ -121,15 +146,43 @@
             label2.TabIndex = 0;
             label2.Text = "Players";
             // 
-            // tabRangList
+            // tabRankList
             // 
-            tabRangList.Location = new Point(4, 24);
-            tabRangList.Name = "tabRangList";
-            tabRangList.Padding = new Padding(3);
-            tabRangList.Size = new Size(768, 375);
-            tabRangList.TabIndex = 1;
-            tabRangList.Text = "Rang List";
-            tabRangList.UseVisualStyleBackColor = true;
+            tabRankList.Controls.Add(label5);
+            tabRankList.Controls.Add(label4);
+            tabRankList.Controls.Add(flMatchRankList);
+            tabRankList.Controls.Add(flPlayerRankList);
+            tabRankList.Location = new Point(4, 24);
+            tabRankList.Name = "tabRankList";
+            tabRankList.Padding = new Padding(3);
+            tabRankList.Size = new Size(768, 375);
+            tabRankList.TabIndex = 1;
+            tabRankList.Text = "Rank List";
+            tabRankList.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(6, 9);
+            label4.Name = "label4";
+            label4.Size = new Size(70, 15);
+            label4.TabIndex = 2;
+            label4.Text = "Player ranks";
+            label4.Click += label4_Click;
+            // 
+            // flMatchRankList
+            // 
+            flMatchRankList.Location = new Point(406, 27);
+            flMatchRankList.Name = "flMatchRankList";
+            flMatchRankList.Size = new Size(356, 348);
+            flMatchRankList.TabIndex = 1;
+            // 
+            // flPlayerRankList
+            // 
+            flPlayerRankList.Location = new Point(6, 27);
+            flPlayerRankList.Name = "flPlayerRankList";
+            flPlayerRankList.Size = new Size(356, 345);
+            flPlayerRankList.TabIndex = 0;
             // 
             // tabSettings
             // 
@@ -140,25 +193,14 @@
             tabSettings.Text = "Settings";
             tabSettings.UseVisualStyleBackColor = true;
             // 
-            // btnToFav
+            // label5
             // 
-            btnToFav.Location = new Point(137, 314);
-            btnToFav.Name = "btnToFav";
-            btnToFav.Size = new Size(75, 23);
-            btnToFav.TabIndex = 4;
-            btnToFav.Text = "->";
-            btnToFav.UseVisualStyleBackColor = true;
-            btnToFav.Click += btnToFav_Click;
-            // 
-            // btnToPlayers
-            // 
-            btnToPlayers.Location = new Point(539, 314);
-            btnToPlayers.Name = "btnToPlayers";
-            btnToPlayers.Size = new Size(75, 23);
-            btnToPlayers.TabIndex = 5;
-            btnToPlayers.Text = "<-";
-            btnToPlayers.UseVisualStyleBackColor = true;
-            btnToPlayers.Click += btnToPlayers_Click;
+            label5.AutoSize = true;
+            label5.Location = new Point(406, 9);
+            label5.Name = "label5";
+            label5.Size = new Size(72, 15);
+            label5.TabIndex = 3;
+            label5.Text = "Match ranks";
             // 
             // AppForm
             // 
@@ -173,6 +215,8 @@
             tabControl1.ResumeLayout(false);
             tabPlayers.ResumeLayout(false);
             tabPlayers.PerformLayout();
+            tabRankList.ResumeLayout(false);
+            tabRankList.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -183,7 +227,7 @@
         private ComboBox cbFavTeam;
         private TabControl tabControl1;
         private TabPage tabPlayers;
-        private TabPage tabRangList;
+        private TabPage tabRankList;
         private TabPage tabSettings;
         private FlowLayoutPanel flPlayers;
         private Label label2;
@@ -191,5 +235,9 @@
         private FlowLayoutPanel flFavourites;
         private Button btnToPlayers;
         private Button btnToFav;
+        private FlowLayoutPanel flPlayerRankList;
+        private Label label4;
+        private FlowLayoutPanel flMatchRankList;
+        private Label label5;
     }
 }

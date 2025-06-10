@@ -13,6 +13,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace WinForms
 {
@@ -28,6 +29,7 @@ namespace WinForms
 
             flPlayers.AutoScroll = true;
             flFavourites.AutoScroll = true;
+            flPlayerRankList.AutoScroll = true;
 
             flPlayers.AllowDrop = true;
             flFavourites.AllowDrop = true;
@@ -42,6 +44,7 @@ namespace WinForms
 
             flFavourites.ControlAdded += FavouriteAdded;
             flFavourites.ControlRemoved += FavouriteRemoved;
+
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -51,7 +54,7 @@ namespace WinForms
 
         void FavouriteAdded(object? sender, ControlEventArgs e)
         {
-            if(e.Control is Panel panel)
+            if (e.Control is Panel panel)
             {
                 if (panel.Tag is string tag)
                     SettingsManager.GetSettings().FavouritePlayers.Add(tag);
@@ -110,10 +113,51 @@ namespace WinForms
                 }
             }
 
+            var playerRanks = await Repository.Get(category).GetPlayerRanks(team);
+            foreach (var rank in playerRanks)
+            {
+                flPlayerRankList.Controls.Add(CreatePlayerRankListPanel(rank));
+            }
 
+            var matchRanks = await Repository.Get(category).GetMatchRanks(team);
+            foreach (var rank in matchRanks)
+            {
+                flMatchRankList.Controls.Add(CreateMatchRankListPanel(rank));
+            }
         }
 
-        private Panel CreatePlayerPanel(string name)
+        private TableLayoutPanel CreateMatchRankListPanel(MatchRank rank)
+        {
+            TableLayoutPanel panel = new()
+            {
+                BorderStyle = BorderStyle.FixedSingle,
+                Width = 180,
+                Height = 50,
+                Margin = new Padding(5),
+                BackColor = Color.LightBlue
+            };
+
+            Label nameLabel = new()
+            {
+                Text = $"{rank.HomeTeamCountry} | {rank.AwayTeamCountry}",
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter,
+            };
+
+            Label infoLabel = new()
+            {
+                Text = $"Visits: {rank.Attendance}, Location: {rank.Location}",
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter,
+            };
+
+            panel.Controls.Add(nameLabel);
+            panel.Controls.Add(infoLabel);
+
+            return panel;
+        }
+
+        private TableLayoutPanel CreatePlayerPanel(string name)
         {
             Label playerLabel = new Label
             {
@@ -140,6 +184,37 @@ namespace WinForms
             playerLabel.MouseDown += ItemMouseDown;
 
             return playerPanel;
+        }
+
+        private TableLayoutPanel CreatePlayerRankListPanel(PlayerRank player)
+        {
+            TableLayoutPanel panel = new()
+            {
+                BorderStyle = BorderStyle.FixedSingle,
+                Width = 180,
+                Height = 50,
+                Margin = new Padding(5),
+                BackColor = Color.LightBlue
+            };
+
+            Label nameLabel = new()
+            {
+                Text = player.PlayerName,
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter,
+            };
+
+            Label infoLabel = new()
+            {
+                Text = $"Plays: {player.AppearanceCount}, Goals: {player.GoalCount}, Yellow cards: {player.YellowCardCount}",
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter,
+            };
+
+            panel.Controls.Add(nameLabel);
+            panel.Controls.Add(infoLabel);
+
+            return panel;
         }
 
         private void ItemMouseDown(object? sender, MouseEventArgs e)
@@ -200,13 +275,13 @@ namespace WinForms
         private void btnToFav_Click(object sender, EventArgs e)
         {
             List<Panel> panelsToRemove = [];
-            foreach(var obj in flPlayers.Controls)
+            foreach (var obj in flPlayers.Controls)
             {
-                if(obj is Panel panel)
+                if (obj is Panel panel)
                 {
-                    foreach(var pObj in panel.Controls)
+                    foreach (var pObj in panel.Controls)
                     {
-                        if(pObj is CheckBox checkbox)
+                        if (pObj is CheckBox checkbox)
                         {
                             if (checkbox.Checked && panel.Tag is string tag)
                             {
@@ -251,6 +326,11 @@ namespace WinForms
             {
                 flFavourites.Controls.Remove(panel);
             }
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
