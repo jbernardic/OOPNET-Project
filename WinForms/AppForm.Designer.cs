@@ -39,14 +39,25 @@
             flPlayers = new FlowLayoutPanel();
             label2 = new Label();
             tabRankList = new TabPage();
+            label5 = new Label();
             label4 = new Label();
             flMatchRankList = new FlowLayoutPanel();
             flPlayerRankList = new FlowLayoutPanel();
             tabSettings = new TabPage();
-            label5 = new Label();
+            btnSave = new Button();
+            gbLanguage = new GroupBox();
+            rbEnglish = new RadioButton();
+            rbCroatian = new RadioButton();
+            gbGender = new GroupBox();
+            rbFemale = new RadioButton();
+            rbMale = new RadioButton();
+            label6 = new Label();
             tabControl1.SuspendLayout();
             tabPlayers.SuspendLayout();
             tabRankList.SuspendLayout();
+            tabSettings.SuspendLayout();
+            gbLanguage.SuspendLayout();
+            gbGender.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -160,6 +171,15 @@
             tabRankList.Text = "Rank List";
             tabRankList.UseVisualStyleBackColor = true;
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(406, 9);
+            label5.Name = "label5";
+            label5.Size = new Size(72, 15);
+            label5.TabIndex = 3;
+            label5.Text = "Match ranks";
+            // 
             // label4
             // 
             label4.AutoSize = true;
@@ -186,6 +206,10 @@
             // 
             // tabSettings
             // 
+            tabSettings.Controls.Add(btnSave);
+            tabSettings.Controls.Add(gbLanguage);
+            tabSettings.Controls.Add(gbGender);
+            tabSettings.Controls.Add(label6);
             tabSettings.Location = new Point(4, 24);
             tabSettings.Name = "tabSettings";
             tabSettings.Size = new Size(768, 375);
@@ -193,14 +217,92 @@
             tabSettings.Text = "Settings";
             tabSettings.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // btnSave
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(406, 9);
-            label5.Name = "label5";
-            label5.Size = new Size(72, 15);
-            label5.TabIndex = 3;
-            label5.Text = "Match ranks";
+            btnSave.Location = new Point(328, 289);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(101, 35);
+            btnSave.TabIndex = 9;
+            btnSave.Text = "Save";
+            btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
+            // 
+            // gbLanguage
+            // 
+            gbLanguage.Controls.Add(rbEnglish);
+            gbLanguage.Controls.Add(rbCroatian);
+            gbLanguage.Location = new Point(305, 208);
+            gbLanguage.Name = "gbLanguage";
+            gbLanguage.Size = new Size(163, 55);
+            gbLanguage.TabIndex = 8;
+            gbLanguage.TabStop = false;
+            gbLanguage.Text = "Select language";
+            // 
+            // rbEnglish
+            // 
+            rbEnglish.AutoSize = true;
+            rbEnglish.Location = new Point(73, 22);
+            rbEnglish.Name = "rbEnglish";
+            rbEnglish.Size = new Size(63, 19);
+            rbEnglish.TabIndex = 1;
+            rbEnglish.Text = "English";
+            rbEnglish.UseVisualStyleBackColor = true;
+            // 
+            // rbCroatian
+            // 
+            rbCroatian.AutoSize = true;
+            rbCroatian.Checked = true;
+            rbCroatian.Location = new Point(6, 22);
+            rbCroatian.Name = "rbCroatian";
+            rbCroatian.Size = new Size(70, 19);
+            rbCroatian.TabIndex = 2;
+            rbCroatian.TabStop = true;
+            rbCroatian.Text = "Croatian";
+            rbCroatian.UseVisualStyleBackColor = true;
+            // 
+            // gbGender
+            // 
+            gbGender.Controls.Add(rbFemale);
+            gbGender.Controls.Add(rbMale);
+            gbGender.Location = new Point(305, 135);
+            gbGender.Name = "gbGender";
+            gbGender.Size = new Size(163, 55);
+            gbGender.TabIndex = 7;
+            gbGender.TabStop = false;
+            gbGender.Text = "Select cup";
+            // 
+            // rbFemale
+            // 
+            rbFemale.AutoSize = true;
+            rbFemale.Location = new Point(73, 22);
+            rbFemale.Name = "rbFemale";
+            rbFemale.Size = new Size(67, 19);
+            rbFemale.TabIndex = 1;
+            rbFemale.Text = "Women";
+            rbFemale.UseVisualStyleBackColor = true;
+            // 
+            // rbMale
+            // 
+            rbMale.AutoSize = true;
+            rbMale.Checked = true;
+            rbMale.Location = new Point(6, 22);
+            rbMale.Name = "rbMale";
+            rbMale.Size = new Size(49, 19);
+            rbMale.TabIndex = 2;
+            rbMale.TabStop = true;
+            rbMale.Text = "Men";
+            rbMale.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            label6.Anchor = AnchorStyles.Top;
+            label6.Font = new Font("Segoe UI", 20F);
+            label6.Location = new Point(134, 51);
+            label6.Name = "label6";
+            label6.Size = new Size(500, 37);
+            label6.TabIndex = 6;
+            label6.Text = "Settings";
+            label6.TextAlign = ContentAlignment.TopCenter;
             // 
             // AppForm
             // 
@@ -217,6 +319,11 @@
             tabPlayers.PerformLayout();
             tabRankList.ResumeLayout(false);
             tabRankList.PerformLayout();
+            tabSettings.ResumeLayout(false);
+            gbLanguage.ResumeLayout(false);
+            gbLanguage.PerformLayout();
+            gbGender.ResumeLayout(false);
+            gbGender.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -239,5 +346,13 @@
         private Label label4;
         private FlowLayoutPanel flMatchRankList;
         private Label label5;
+        private Button btnSave;
+        private GroupBox gbLanguage;
+        private RadioButton rbEnglish;
+        private RadioButton rbCroatian;
+        private GroupBox gbGender;
+        private RadioButton rbFemale;
+        private RadioButton rbMale;
+        private Label label6;
     }
 }

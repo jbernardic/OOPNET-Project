@@ -35,7 +35,7 @@
             gbLanguage = new GroupBox();
             rbEnglish = new RadioButton();
             rbCroatian = new RadioButton();
-            btnNext = new Button();
+            btnSave = new Button();
             gbGender.SuspendLayout();
             gbLanguage.SuspendLayout();
             SuspendLayout();
@@ -117,22 +117,22 @@
             rbCroatian.Text = "Croatian";
             rbCroatian.UseVisualStyleBackColor = true;
             // 
-            // btnNext
+            // btnSave
             // 
-            btnNext.Location = new Point(318, 247);
-            btnNext.Name = "btnNext";
-            btnNext.Size = new Size(101, 35);
-            btnNext.TabIndex = 5;
-            btnNext.Text = "Next";
-            btnNext.UseVisualStyleBackColor = true;
-            btnNext.Click += btnNext_Click;
+            btnSave.Location = new Point(318, 247);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(101, 35);
+            btnSave.TabIndex = 5;
+            btnSave.Text = "Save";
+            btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnNext_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(btnNext);
+            Controls.Add(btnSave);
             Controls.Add(gbLanguage);
             Controls.Add(gbGender);
             Controls.Add(label1);
@@ -154,6 +154,6 @@
         private GroupBox gbLanguage;
         private RadioButton rbEnglish;
         private RadioButton rbCroatian;
-        private Button btnNext;
+        private Button btnSave;
     }
 }

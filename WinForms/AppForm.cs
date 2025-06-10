@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static DataLayer.UserSettings;
 
 namespace WinForms
 {
@@ -43,8 +44,20 @@ namespace WinForms
             FillTeams();
 
             flFavourites.ControlAdded += FavouriteAdded;
-            flFavourites.ControlRemoved += FavouriteRemoved;
 
+
+            var settings = SettingsManager.GetSettings();
+            if(settings.SelectedCategory == Category.Men)
+            {
+                rbMale.Checked = true;
+            }
+            else rbFemale.Checked = true;
+
+            if (settings.SelectedLanguage == Language.English)
+            {
+                rbEnglish.Checked = true;
+            }
+            else rbCroatian.Checked = true;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -62,9 +75,9 @@ namespace WinForms
         }
 
 
-        void FavouriteRemoved(object? sender, ControlEventArgs e)
+        void FavouriteRemovedByUser(Control? control)
         {
-            if (e.Control is Panel panel)
+            if (control is Panel panel)
             {
                 if (panel.Tag is string tag)
                     SettingsManager.GetSettings().FavouritePlayers.Remove(tag);
@@ -78,22 +91,25 @@ namespace WinForms
             var teams = await Repository.Get(category).GetTeams();
 
             var index = 0;
+            var selectedIndex = 0;
             foreach (var team in teams)
             {
                 cbFavTeam.Items.Add(team);
 
                 if (team == SettingsManager.GetSettings().FavouriteTeam)
                 {
-                    cbFavTeam.SelectedIndex = index;
+                    selectedIndex = index;
                 }
                 index++;
 
             }
+            cbFavTeam.SelectedIndex = selectedIndex;
         }
 
         private async void CreatePanels()
         {
             flPlayers.Controls.Clear();
+            flFavourites.Controls.Clear();
 
             var category = SettingsManager.GetSettings().SelectedCategory;
             var team = SettingsManager.GetSettings().FavouriteTeam;
@@ -177,11 +193,14 @@ namespace WinForms
                 BackColor = Color.LightBlue
             };
 
+            var checkBox = new CheckBox();
+
             playerPanel.Controls.Add(playerLabel);
-            playerPanel.Controls.Add(new CheckBox());
+            playerPanel.Controls.Add(checkBox);
 
             playerPanel.MouseDown += ItemMouseDown;
             playerLabel.MouseDown += ItemMouseDown;
+            checkBox.MouseDown += ItemMouseDown;
 
             return playerPanel;
         }
@@ -253,6 +272,11 @@ namespace WinForms
             if (_draggedPanel.Parent != targetPanel)
             {
                 targetPanel.Controls.Add(_draggedPanel);
+                
+                if(targetPanel == flPlayers)
+                {
+                    FavouriteRemovedByUser(_draggedPanel);
+                }
             }
 
             _draggedPanel = null;
@@ -325,12 +349,25 @@ namespace WinForms
             foreach (var panel in panelsToRemove)
             {
                 flFavourites.Controls.Remove(panel);
+                FavouriteRemovedByUser(panel);
             }
         }
 
         private void label4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            UserSettings settings = SettingsManager.GetSettings();
+            settings.SelectedCategory = rbFemale.Checked ? Category.Women : Category.Men;
+            settings.SelectedLanguage = rbCroatian.Checked ? Language.Croatian : Language.English;
+            settings.FavouriteTeam = null;
+            settings.Save();
+
+            cbFavTeam.Items.Clear();
+            FillTeams();
         }
     }
 }
