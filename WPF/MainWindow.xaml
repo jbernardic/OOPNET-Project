@@ -1,0 +1,25 @@
+﻿<Window x:Class="WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="49*"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="1" Content="Settings" HorizontalAlignment="Center" Margin="0,19,0,0" VerticalAlignment="Top" FontSize="36"/>
+        
+        <RadioButton x:Name="rbWomen" Grid.Column="1" Content="Women" HorizontalAlignment="Left" Margin="430,184,0,0" VerticalAlignment="Top" GroupName="CupGroup" IsChecked="False"/>
+        <RadioButton x:Name="rbCroatian" Grid.Column="1" Content="Croatian" HorizontalAlignment="Left" Margin="311,270,0,0" VerticalAlignment="Top" IsChecked="True" GroupName="LanguageGroup"/>
+        <RadioButton x:Name="rbEnglish" Grid.Column="1" Content="English" HorizontalAlignment="Left" Margin="430,270,0,0" VerticalAlignment="Top" GroupName="LanguageGroup" IsChecked="False"/>
+        <Label Grid.Column="1" Content="Select Cup" HorizontalAlignment="Left" Margin="306,133,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Label Grid.Column="1" Content="Select Language" HorizontalAlignment="Left" Margin="306,231,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Button Grid.Column="1" Content="Save" HorizontalAlignment="Center" Margin="0,332,0,0" VerticalAlignment="Top" Height="33" Width="76" Click="Button_Click"/>
+        <RadioButton x:Name="rbMen" Grid.Column="1" Content="Men" HorizontalAlignment="Left" Margin="311,184,0,0" VerticalAlignment="Top" IsChecked="True" GroupName="CupGroup"/>
+
+    </Grid>
+</Window>

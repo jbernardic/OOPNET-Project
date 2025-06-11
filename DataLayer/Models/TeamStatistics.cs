@@ -56,10 +56,10 @@ namespace DataLayer.Models
         public int Tackles { get; set; }
 
         [JsonPropertyName("clearances")]
-        public int Clearances { get; set; }
+        public int? Clearances { get; set; }
 
         [JsonPropertyName("yellow_cards")]
-        public int YellowCards { get; set; }
+        public int? YellowCards { get; set; }
 
         [JsonPropertyName("red_cards")]
         public int RedCards { get; set; }

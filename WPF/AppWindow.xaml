@@ -1,0 +1,52 @@
+﻿<Window x:Class="WPF.AppWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF"
+        mc:Ignorable="d"
+        Title="AppWindow" Height="885" Width="800">
+    <Grid Margin="10">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <ComboBox x:Name="cbHome" Width="150" SelectionChanged="cbHome_SelectionChanged" />
+                <ComboBox x:Name="cbAway" Width="150" Margin="10,0,0,0" SelectionChanged="cbAway_SelectionChanged" />
+            </StackPanel>
+
+            <TextBlock x:Name="txtScore" FontSize="24" HorizontalAlignment="Center" Margin="0,10,0,10"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
+                <Button Content="Show Home Info" Margin="5"/>
+                <Button Content="Show Away Info" Margin="5"/>
+            </StackPanel>
+
+            <Grid x:Name="fieldArea" Height="668" Background="Green">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <WrapPanel Grid.Row="0" x:Name="HomeGoalie" HorizontalAlignment="Center" ItemHeight="50" ItemWidth="100" Margin="5"/>
+                <WrapPanel Grid.Row="1" x:Name="HomeDefender" HorizontalAlignment="Center" ItemHeight="50" ItemWidth="100" Margin="5" />
+                <WrapPanel Grid.Row="2" x:Name="HomeMidfield" HorizontalAlignment="Center" ItemHeight="50" ItemWidth="100" Margin="5" />
+                <WrapPanel Grid.Row="3" x:Name="HomeForward" HorizontalAlignment="Center" ItemHeight="50" ItemWidth="100" Margin="5" />
+
+                <WrapPanel Grid.Row="5" x:Name="AwayForward" HorizontalAlignment="Center" ItemHeight="50" ItemWidth="100" Margin="5" />
+                <WrapPanel Grid.Row="6" x:Name="AwayMidfield" HorizontalAlignment="Center" ItemHeight="50" ItemWidth="100" Margin="5" />
+                <WrapPanel Grid.Row="7" x:Name="AwayDefender" HorizontalAlignment="Center" ItemHeight="50" ItemWidth="100" Margin="5" />
+                <WrapPanel Grid.Row="8" x:Name="AwayGoalie" HorizontalAlignment="Center" ItemHeight="50" ItemWidth="100" Margin="5" />
+            </Grid>
+
+            <TextBlock x:Name="loadingSpinner" Text="Loading..." Visibility="Collapsed" HorizontalAlignment="Center" FontWeight="Bold" Margin="10"/>
+
+            <Button x:Name="BtnSettings" Content="Settings" HorizontalAlignment="Right" Margin="0,10,10,0" Width="80"/>
+        </StackPanel>
+    </Grid>
+</Window>

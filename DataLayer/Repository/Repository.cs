@@ -39,7 +39,7 @@ namespace DataLayer.Repository
 
         }
 
-        public async Task<List<Player>> GetPlayers(string fifaCode, int matchIndex = 0)
+        public async Task<List<Player>> GetPlayers(string fifaCode)
         {
             var match = (await GetMatches(fifaCode))?.FirstOrDefault();
             if (match == null)
