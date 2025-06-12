@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DataLayer.Models
@@ -74,5 +75,29 @@ namespace DataLayer.Models
 
         [JsonPropertyName("last_score_update_at")]
         public DateTime? LastScoreUpdateAt { get; set; }
+
+        public PlayerRank GetPlayerStats(Player player)
+        {
+            var events = AwayTeamEvents.Union(HomeTeamEvents);
+
+            var rank = new PlayerRank();
+            rank.PlayerName = player.Name;
+
+            foreach (var e in events)
+            {
+                if(e.Player == player.Name)
+                {
+                    if (e.TypeOfEvent == "goal")
+                    {
+                        rank.GoalCount++;
+                    }
+                    else if (e.TypeOfEvent == "yellow-card")
+                    {
+                        rank.YellowCardCount++;
+                    }
+                }
+            }
+            return rank;
+        }
     }
 }

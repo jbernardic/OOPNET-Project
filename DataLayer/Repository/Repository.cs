@@ -109,7 +109,6 @@ namespace DataLayer.Repository
                 var events = match.AwayTeamEvents.Union(match.HomeTeamEvents);
                 foreach (var e in events)
                 {
-
                     var rank = rankMap[e.Player];
 
                     if (e.TypeOfEvent == "goal")

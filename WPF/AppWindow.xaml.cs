@@ -3,6 +3,7 @@ using DataLayer.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -26,6 +27,9 @@ namespace WPF
         private List<DataLayer.Models.Match> matches = [];
         private List<DataLayer.Models.Result> results = [];
         private DataLayer.Models.Match? selectedMatch;
+
+        private string HomeTeamCode { get { return cbHome.SelectedValue?.ToString() ?? ""; } }
+        private string AwayTeamCode { get { return cbAway.SelectedValue?.ToString() ?? ""; } }
 
         public AppWindow()
         {
@@ -51,7 +55,7 @@ namespace WPF
         private void LoadAwayData()
         {
             var awayTeams = (matches ?? [])
-                .Where(match => match.HomeTeam.Code == cbHome.SelectedValue.ToString())
+                .Where(match => match.HomeTeam.Code == HomeTeamCode)
                 .Select(match => match.AwayTeam.Code)
                 .ToList();
             cbAway.ItemsSource = awayTeams;
@@ -70,6 +74,22 @@ namespace WPF
 
         private void PositionPlayers(Player[] players, bool isHomeTeam)
         {
+
+            if (isHomeTeam)
+            {
+                HomeGoalie.Children.Clear();
+                HomeDefender.Children.Clear();
+                HomeMidfield.Children.Clear();
+                HomeForward.Children.Clear();
+            }
+            else
+            {
+                AwayGoalie.Children.Clear();
+                AwayDefender.Children.Clear();
+                AwayMidfield.Children.Clear();
+                AwayForward.Children.Clear();
+            }
+
             foreach (var player in players)
             {
                 var ctrl = new PlayerControl(player.Name, player.ShirtNumber);
@@ -95,22 +115,35 @@ namespace WPF
 
         private void ShowPlayerDetails(Player player)
         {
-            throw new NotImplementedException();
+            if (selectedMatch == null) return;
+
+            var playerWindow = new PlayerWindow(player, selectedMatch)
+            {
+                Owner = this
+            };
+            playerWindow.ShowDialog();
         }
 
         private void cbAway_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            selectedMatch = matches.Where(
-                match => match.HomeTeam.Code == cbHome.SelectedValue.ToString() &&
-                match.AwayTeam.Code == cbAway.SelectedValue.ToString()
-                ).First();
 
-            LoadPlayers();
+            var match = matches.Where(
+                match => match.HomeTeam.Code == HomeTeamCode &&
+                match.AwayTeam.Code == AwayTeamCode
+                );
+
+            if(match.Any())
+            {
+                selectedMatch = match.First();
+                LoadPlayers();
+            }
+
+
         }
 
         private void cbHome_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SettingsManager.GetSettings().FavouriteTeam = cbHome.SelectedValue.ToString();
+            SettingsManager.GetSettings().FavouriteTeam = HomeTeamCode;
             SettingsManager.GetSettings().Save();
             LoadAwayData();
 
