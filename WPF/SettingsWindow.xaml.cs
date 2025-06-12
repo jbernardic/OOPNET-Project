@@ -35,13 +35,23 @@ namespace WPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            UserSettings settings = SettingsManager.GetSettings();
-            settings.SelectedCategory = rbWomen.IsChecked == true ? UserSettings.Category.Women : UserSettings.Category.Men;
-            settings.SelectedLanguage = rbCroatian.IsChecked == true ? UserSettings.Language.Croatian : UserSettings.Language.English;
-            settings.SelectedResolution = cbResolution.SelectedValue as Resolution;
-            settings.Save();
+            var msgWindow = new MessageWindow()
+            {
+                Owner = this
+            };
+            msgWindow.ShowDialog();
+            if (msgWindow.YesAnswer)
+            {
+                UserSettings settings = SettingsManager.GetSettings();
+                settings.SelectedCategory = rbWomen.IsChecked == true ? UserSettings.Category.Women : UserSettings.Category.Men;
+                settings.SelectedLanguage = rbCroatian.IsChecked == true ? UserSettings.Language.Croatian : UserSettings.Language.English;
+                settings.SelectedResolution = cbResolution.SelectedValue as Resolution;
+                settings.Save();
 
-            Close();
+                Close();
+            }
+
+
 
         }
     }

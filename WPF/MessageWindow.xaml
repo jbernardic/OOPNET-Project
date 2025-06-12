@@ -1,0 +1,14 @@
+﻿<Window x:Class="WPF.MessageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF"
+        mc:Ignorable="d"
+        Title="MessageWindow" Height="255" Width="570">
+    <Grid Margin="0,0,0,10">
+        <Label Content="Do you want to continue?" HorizontalAlignment="Left" Margin="130,0,0,0" VerticalAlignment="Center" FontSize="20" Width="286"/>
+        <Button x:Name="btnYes" Content="Yes" HorizontalAlignment="Left" Margin="373,172,0,0" VerticalAlignment="Top" Width="86" Click="btnYes_Click"/>
+        <Button x:Name="ntnNo" Content="No" HorizontalAlignment="Left" Margin="464,172,0,0" VerticalAlignment="Top" Width="68" Click="ntnNo_Click"/>
+    </Grid>
+</Window>

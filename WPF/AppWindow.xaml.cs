@@ -2,6 +2,7 @@
 using DataLayer.Repository;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -36,6 +37,19 @@ namespace WPF
             InitializeComponent();
 
             LoadData();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            var msgWindow = new MessageWindow()
+            {
+                Owner = this
+            };
+            msgWindow.ShowDialog();
+            if (!msgWindow.YesAnswer)
+            {
+                e.Cancel = true;
+            }
         }
 
         private async void LoadData()
