@@ -16,8 +16,8 @@
             <TextBlock x:Name="txtScore" FontSize="24" HorizontalAlignment="Center" Margin="0,10,0,10"/>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
-                <Button Content="Show Home Info" Margin="5"/>
-                <Button Content="Show Away Info" Margin="5"/>
+                <Button Content="Show Home Info" Margin="5" Click="Button_Click"/>
+                <Button Content="Show Away Info" Margin="5" Click="Button_Click_1"/>
             </StackPanel>
 
             <Grid x:Name="fieldArea" Height="668" Background="Green">
@@ -46,7 +46,7 @@
 
             <TextBlock x:Name="loadingSpinner" Text="Loading..." Visibility="Collapsed" HorizontalAlignment="Center" FontWeight="Bold" Margin="10"/>
 
-            <Button x:Name="BtnSettings" Content="Settings" HorizontalAlignment="Right" Margin="0,10,10,0" Width="80"/>
+            <Button x:Name="BtnSettings" Content="Settings" HorizontalAlignment="Right" Margin="0,10,10,0" Width="80" Click="BtnSettings_Click"/>
         </StackPanel>
     </Grid>
 </Window>

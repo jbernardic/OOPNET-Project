@@ -17,8 +17,46 @@ namespace DataLayer
             English
         }
 
+        public class Resolution
+        {
+
+            public bool IsFullscreen => Width == 0 && Height == 0;
+            public int Width { get; set; }
+            public int Height { get; set; }
+
+            public override string ToString()
+            {
+                if (IsFullscreen)
+                {
+                    return "fullscreen";
+                }
+                return $"{Width}x{Height}";
+            }
+
+            public static Resolution FromString(string res)
+            {
+                if (res == "fullscreen")
+                {
+                    return new Resolution
+                    {
+                        Width = 0,
+                        Height = 0,
+                    };
+                }
+                
+                var widthHeight = res.Split("x");
+
+                return new Resolution
+                {
+                    Width = int.Parse(widthHeight[0]),
+                    Height = int.Parse(widthHeight[1])
+                };
+            }
+        }
+
         public Category SelectedCategory { get; set; } = Category.Men;
         public Language SelectedLanguage { get; set; } = Language.Croatian;
+        public Resolution? SelectedResolution { get; set; } = null;
         public string? FavouriteTeam { get; set; } = null;
         public HashSet<string> FavouritePlayers { get; set; } = [];
 
@@ -61,6 +99,11 @@ namespace DataLayer
                     FavouritePlayers = [.. value.Split(",")];
                     FavouritePlayers.Remove("");
                 }
+
+                if (key.Equals("Resolution", StringComparison.OrdinalIgnoreCase))
+                {
+                    SelectedResolution = Resolution.FromString(value);
+                }
             }
         }
 
@@ -71,7 +114,8 @@ namespace DataLayer
             $"Category={SelectedCategory}",
             $"Language={SelectedLanguage}",
             $"FavouriteTeam={FavouriteTeam}",
-            $"FavouritePlayers={String.Join(",", FavouritePlayers)}"
+            $"FavouritePlayers={String.Join(",", FavouritePlayers)}",
+            $"Resolution={SelectedResolution}"
             };
 
             File.WriteAllLines(FilePath, lines);

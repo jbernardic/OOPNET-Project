@@ -35,19 +35,30 @@ namespace WPF
         {
             InitializeComponent();
 
-            LoadMatches();
-            LoadHomeData();
+            LoadData();
         }
 
-        private async void LoadMatches()
+        private async void LoadData()
         {
+            var resolution = SettingsManager.GetSettings().SelectedResolution;
+            if (resolution != null)
+            {
+                if (resolution.IsFullscreen)
+                {
+                    WindowState = WindowState.Maximized;
+                }
+                else
+                {
+                    WindowState = WindowState.Normal;
+                    Width = resolution.Width;
+                    Height = resolution.Height;
+                }
+            }
+
             matches = await Repository.Get(SettingsManager.GetSettings().SelectedCategory).GetMatches() ?? [];
             results = await Repository.Get(SettingsManager.GetSettings().SelectedCategory).GetResults() ?? [];
-        }
-
-        private async void LoadHomeData()
-        {
             var teams = await Repository.Get(SettingsManager.GetSettings().SelectedCategory).GetTeams();
+            
             cbHome.ItemsSource = teams;
             cbHome.SelectedValue = SettingsManager.GetSettings().FavouriteTeam;
         }
@@ -61,7 +72,7 @@ namespace WPF
             cbAway.ItemsSource = awayTeams;
         }
 
-        private async void LoadPlayers()
+        private void LoadPlayers()
         {
             if (selectedMatch == null) return;
 
@@ -136,17 +147,64 @@ namespace WPF
             {
                 selectedMatch = match.First();
                 LoadPlayers();
+
+                txtScore.Text = $"{selectedMatch.HomeTeam.Goals} : {selectedMatch.AwayTeam.Goals}";
             }
-
-
         }
 
         private void cbHome_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SettingsManager.GetSettings().FavouriteTeam = HomeTeamCode;
             SettingsManager.GetSettings().Save();
+
+            cbAway.SelectedIndex = -1;
+
             LoadAwayData();
 
+        }
+
+        //show home info
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            var r = results.Where(r => r.FifaCode == HomeTeamCode);
+
+            if(r.Any())
+            {
+                var window = new TeamWindow(r.First())
+                {
+                    Owner = this
+                };
+                window.ShowDialog();
+            }
+
+
+        }
+
+        //show away info
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            var r = results.Where(r => r.FifaCode == AwayTeamCode);
+
+            if (r.Any())
+            {
+                var window = new TeamWindow(r.First())
+                {
+                    Owner = this
+                };
+                window.ShowDialog();
+            }
+        }
+
+        //settings btn
+        private void BtnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new SettingsWindow()
+            {
+                Owner = this
+            };
+            window.ShowDialog();
+            LoadData();
         }
     }
 }

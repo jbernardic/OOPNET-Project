@@ -1,5 +1,9 @@
 ﻿using DataLayer;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -7,15 +11,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static DataLayer.UserSettings;
 
 namespace WPF
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for SettingsWindow.xaml
+    /// </summary>
+    public partial class SettingsWindow : Window
     {
-        public MainWindow()
+        public SettingsWindow()
         {
             InitializeComponent();
 
@@ -25,13 +31,6 @@ namespace WPF
             cbResolution.Items.Add(Resolution.FromString("1440x2560"));
 
             cbResolution.SelectedIndex = 0;
-
-            try
-            {
-                SettingsManager.GetSettings().Load();
-                OpenAppWindow();
-            }
-            catch { }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -42,15 +41,8 @@ namespace WPF
             settings.SelectedResolution = cbResolution.SelectedValue as Resolution;
             settings.Save();
 
-            OpenAppWindow();
-        }
-
-        private void OpenAppWindow()
-        {
-            AppWindow appWindow = new AppWindow();
-            Application.Current.MainWindow = appWindow;
-            appWindow.Show();
             Close();
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataLayer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,13 @@ namespace WPF
     /// </summary>
     public partial class TeamWindow : Window
     {
-        public TeamWindow()
+        public TeamWindow(Result result)
         {
             InitializeComponent();
+
+            lblTeamInfo.Text = $"{result.Country}\n{result.FifaCode}\n" +
+                $"{result.GamesPlayed}/{result.Wins}/{result.Losses}/{result.Draws}\n" +
+                $"{result.GoalsFor}/{result.GoalsAgainst}/{result.GoalDifferential}";
         }
     }
 }
