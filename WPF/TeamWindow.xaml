@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="TeamWindow" Height="450" Width="800">
     <Grid Margin="10">
+        <Grid.LayoutTransform>
+            <ScaleTransform x:Name="ScaleEffect" ScaleX="0.7" ScaleY="0.7"/>
+        </Grid.LayoutTransform>
         <TextBlock x:Name="lblTeamInfo" TextWrapping="Wrap"/>
     </Grid>
 </Window>

@@ -28,7 +28,7 @@ namespace WPF
 
             try
             {
-                SettingsManager.GetSettings().Load();
+                UserSettings.GetInstance().Load();
                 OpenAppWindow();
             }
             catch { }
@@ -36,7 +36,7 @@ namespace WPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            UserSettings settings = SettingsManager.GetSettings();
+            UserSettings settings = UserSettings.GetInstance();
             settings.SelectedCategory = rbWomen.IsChecked == true ? UserSettings.Category.Women : UserSettings.Category.Men;
             settings.SelectedLanguage = rbCroatian.IsChecked == true ? UserSettings.Language.Croatian : UserSettings.Language.English;
             settings.SelectedResolution = cbResolution.SelectedValue as Resolution;

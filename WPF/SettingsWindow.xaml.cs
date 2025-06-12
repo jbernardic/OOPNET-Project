@@ -42,7 +42,7 @@ namespace WPF
             msgWindow.ShowDialog();
             if (msgWindow.YesAnswer)
             {
-                UserSettings settings = SettingsManager.GetSettings();
+                UserSettings settings = UserSettings.GetInstance();
                 settings.SelectedCategory = rbWomen.IsChecked == true ? UserSettings.Category.Women : UserSettings.Category.Men;
                 settings.SelectedLanguage = rbCroatian.IsChecked == true ? UserSettings.Language.Croatian : UserSettings.Language.English;
                 settings.SelectedResolution = cbResolution.SelectedValue as Resolution;

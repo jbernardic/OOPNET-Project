@@ -1,6 +1,7 @@
 ﻿using DataLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,22 @@ namespace WPF
 
             lblInfo.Text = $"{player.Name}\n{player.ShirtNumber}\nCaptain? {player.Captain}\nGoals: {stats.GoalCount}\n" +
                 $"Yellow cards: {stats.YellowCardCount}";
+
+            Loaded += Window_Loaded;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Opacity = 0;
+            var fadeIn = new DoubleAnimation
+            {
+                From = 0,
+                To = 1,
+                Duration = TimeSpan.FromSeconds(0.3),
+                FillBehavior = FillBehavior.HoldEnd
+            };
+
+            this.BeginAnimation(OpacityProperty, fadeIn);
         }
     }
 }

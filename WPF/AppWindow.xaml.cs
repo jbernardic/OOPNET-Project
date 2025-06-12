@@ -1,4 +1,5 @@
-﻿using DataLayer.Models;
+﻿using DataLayer;
+using DataLayer.Models;
 using DataLayer.Repository;
 using System;
 using System.Collections.Generic;
@@ -54,7 +55,7 @@ namespace WPF
 
         private async void LoadData()
         {
-            var resolution = SettingsManager.GetSettings().SelectedResolution;
+            var resolution = UserSettings.GetInstance().SelectedResolution;
             if (resolution != null)
             {
                 if (resolution.IsFullscreen)
@@ -69,12 +70,12 @@ namespace WPF
                 }
             }
 
-            matches = await Repository.Get(SettingsManager.GetSettings().SelectedCategory).GetMatches() ?? [];
-            results = await Repository.Get(SettingsManager.GetSettings().SelectedCategory).GetResults() ?? [];
-            var teams = await Repository.Get(SettingsManager.GetSettings().SelectedCategory).GetTeams();
+            matches = await Repository.Get(UserSettings.GetInstance().SelectedCategory).GetMatches() ?? [];
+            results = await Repository.Get(UserSettings.GetInstance().SelectedCategory).GetResults() ?? [];
+            var teams = await Repository.Get(UserSettings.GetInstance().SelectedCategory).GetTeams();
             
             cbHome.ItemsSource = teams;
-            cbHome.SelectedValue = SettingsManager.GetSettings().FavouriteTeam;
+            cbHome.SelectedValue = UserSettings.GetInstance().FavouriteTeam;
         }
 
         private void LoadAwayData()
@@ -168,8 +169,8 @@ namespace WPF
 
         private void cbHome_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SettingsManager.GetSettings().FavouriteTeam = HomeTeamCode;
-            SettingsManager.GetSettings().Save();
+            UserSettings.GetInstance().FavouriteTeam = HomeTeamCode;
+            UserSettings.GetInstance().Save();
 
             cbAway.SelectedIndex = -1;
 

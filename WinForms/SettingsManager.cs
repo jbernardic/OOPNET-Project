@@ -9,12 +9,11 @@ namespace WinForms
 {
     public class SettingsManager
     {
-        private static readonly string settingsPath = Path.Combine(Application.StartupPath, "settings.txt");
         private static UserSettings? settings;
 
         public static UserSettings GetSettings()
         {
-            settings ??= new UserSettings(settingsPath);
+            settings ??= new UserSettings();
             return settings;
         }
     }

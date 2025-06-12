@@ -1,9 +1,18 @@
 ﻿using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 
 namespace DataLayer
 {
-    public class UserSettings(string filePath)
+    public class UserSettings()
     {
+
+        private static UserSettings? settings;
+
+        public static UserSettings GetInstance()
+        {
+            settings ??= new UserSettings();
+            return settings;
+        }
 
         public enum Category
         {
@@ -33,8 +42,10 @@ namespace DataLayer
                 return $"{Width}x{Height}";
             }
 
-            public static Resolution FromString(string res)
+            public static Resolution? FromString(string res)
             {
+                if (res.Length == 0) return null;
+
                 if (res == "fullscreen")
                 {
                     return new Resolution
@@ -60,7 +71,7 @@ namespace DataLayer
         public string? FavouriteTeam { get; set; } = null;
         public HashSet<string> FavouritePlayers { get; set; } = [];
 
-        public string FilePath { get; set; } = filePath;
+        private static readonly string FilePath = PathHelper.GetRelativePath("settings.txt");
 
         public void Load()
         {
