@@ -47,7 +47,7 @@ namespace WPF
                 settings.SelectedLanguage = rbCroatian.IsChecked == true ? UserSettings.Language.Croatian : UserSettings.Language.English;
                 settings.SelectedResolution = cbResolution.SelectedValue as Resolution;
                 settings.Save();
-
+                UserSettings.ApplyCulture();
                 Close();
             }
 
