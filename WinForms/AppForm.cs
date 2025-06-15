@@ -95,23 +95,12 @@ namespace WinForms
         private async void FillTeams()
         {
             var category = SettingsManager.GetSettings().SelectedCategory;
+            var favTeam = SettingsManager.GetSettings().FavouriteTeam;
 
             var teams = await Repository.Get(category).GetTeams();
 
-            var index = 0;
-            var selectedIndex = 0;
-            foreach (var team in teams)
-            {
-                cbFavTeam.Items.Add(team);
-
-                if (team == SettingsManager.GetSettings().FavouriteTeam)
-                {
-                    selectedIndex = index;
-                }
-                index++;
-
-            }
-            cbFavTeam.SelectedIndex = selectedIndex;
+            cbFavTeam.DataSource = teams;
+            cbFavTeam.SelectedIndex = teams.FindIndex(0, teams.Count, (x)=> x==favTeam);
         }
 
         private async void CreatePanels()
