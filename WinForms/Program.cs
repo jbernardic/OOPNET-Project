@@ -19,7 +19,7 @@ namespace WinForms
 
 
 
-            var settings = SettingsManager.GetSettings();
+            var settings = UserSettings.GetInstance();
             try
             {
                 settings.Load();

@@ -14,7 +14,7 @@ namespace WinForms
         private void btnNext_Click(object sender, EventArgs e)
         {
 
-            UserSettings settings = SettingsManager.GetSettings();
+            UserSettings settings = UserSettings.GetInstance();
             settings.SelectedCategory = rbFemale.Checked ? Category.Women : Category.Men;
             settings.SelectedLanguage = rbCroatian.Checked ? Language.Croatian : Language.English;
             settings.Save();

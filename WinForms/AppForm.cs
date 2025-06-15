@@ -47,7 +47,7 @@ namespace WinForms
             flFavourites.ControlAdded += FavouriteAdded;
 
 
-            var settings = SettingsManager.GetSettings();
+            var settings = UserSettings.GetInstance();
             if (settings.SelectedCategory == Category.Men)
             {
                 rbMale.Checked = true;
@@ -67,7 +67,7 @@ namespace WinForms
             msgForm.ShowDialog();
             if (msgForm.YesAnswer)
             {
-                SettingsManager.GetSettings().Save();
+                UserSettings.GetInstance().Save();
             }
             else e.Cancel = true;
 
@@ -78,7 +78,7 @@ namespace WinForms
             if (e.Control is Panel panel)
             {
                 if (panel.Tag is string tag)
-                    SettingsManager.GetSettings().FavouritePlayers.Add(tag);
+                    UserSettings.GetInstance().FavouritePlayers.Add(tag);
             }
         }
 
@@ -88,14 +88,14 @@ namespace WinForms
             if (control is Panel panel)
             {
                 if (panel.Tag is string tag)
-                    SettingsManager.GetSettings().FavouritePlayers.Remove(tag);
+                    UserSettings.GetInstance().FavouritePlayers.Remove(tag);
             }
         }
 
         private async void FillTeams()
         {
-            var category = SettingsManager.GetSettings().SelectedCategory;
-            var favTeam = SettingsManager.GetSettings().FavouriteTeam;
+            var category = UserSettings.GetInstance().SelectedCategory;
+            var favTeam = UserSettings.GetInstance().FavouriteTeam;
 
             var teams = await Repository.Get(category).GetTeams();
 
@@ -108,15 +108,15 @@ namespace WinForms
             flPlayers.Controls.Clear();
             flFavourites.Controls.Clear();
 
-            var category = SettingsManager.GetSettings().SelectedCategory;
-            var team = SettingsManager.GetSettings().FavouriteTeam;
+            var category = UserSettings.GetInstance().SelectedCategory;
+            var team = UserSettings.GetInstance().FavouriteTeam;
             if (team == null) return;
 
             var players = await Repository.Get(category).GetPlayers(team);
 
             foreach (var player in players)
             {
-                if (!SettingsManager.GetSettings().FavouritePlayers.Contains(player.Name))
+                if (!UserSettings.GetInstance().FavouritePlayers.Contains(player.Name))
                 {
                     flPlayers.Controls.Add(CreatePlayerPanel(player.Name));
                 }
@@ -266,7 +266,7 @@ namespace WinForms
             {
                 if (cb.SelectedItem != null)
                 {
-                    SettingsManager.GetSettings().FavouriteTeam = cb.SelectedItem.ToString();
+                    UserSettings.GetInstance().FavouriteTeam = cb.SelectedItem.ToString();
                     CreatePanels();
                 }
             }
@@ -328,7 +328,7 @@ namespace WinForms
             msgForm.ShowDialog();
             if (msgForm.YesAnswer)
             {
-                UserSettings settings = SettingsManager.GetSettings();
+                UserSettings settings = UserSettings.GetInstance();
                 settings.SelectedCategory = rbFemale.Checked ? Category.Women : Category.Men;
                 settings.SelectedLanguage = rbCroatian.Checked ? Language.Croatian : Language.English;
                 settings.FavouriteTeam = null;
