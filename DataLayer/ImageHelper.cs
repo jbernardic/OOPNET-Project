@@ -31,7 +31,7 @@ namespace DataLayer
             return null;
         }
 
-        public void UploadPlayerImage(string playerName, string imagePath)
+        public static void UploadPlayerImage(string playerName, string imagePath)
         {
             if (!File.Exists(imagePath))
                 throw new FileNotFoundException("Source image not found", imagePath);

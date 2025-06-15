@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static DataLayer.UserSettings;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace WinForms
 {
@@ -180,36 +181,15 @@ namespace WinForms
             return panel;
         }
 
-        private TableLayoutPanel CreatePlayerPanel(string name)
+        private Control CreatePlayerPanel(string name)
         {
-            Label playerLabel = new Label
-            {
-                Text = name,
-                Dock = DockStyle.Fill,
-                TextAlign = ContentAlignment.MiddleCenter,
-            };
+            PlayerControl control = new(name);
 
+            control.MouseDown += ItemMouseDown;
+            control.GetLabel().MouseDown += ItemMouseDown;
+            
 
-            TableLayoutPanel playerPanel = new TableLayoutPanel
-            {
-                BorderStyle = BorderStyle.FixedSingle,
-                Width = 180,
-                Height = 50,
-                Margin = new Padding(5),
-                Tag = name,
-                BackColor = Color.LightBlue
-            };
-
-            var checkBox = new CheckBox();
-            checkBox.Width = 15;
-
-            playerPanel.Controls.Add(playerLabel);
-            playerPanel.Controls.Add(checkBox);
-
-            playerPanel.MouseDown += ItemMouseDown;
-            playerLabel.MouseDown += ItemMouseDown;
-
-            return playerPanel;
+            return control;
         }
 
         private TableLayoutPanel CreatePlayerRankListPanel(PlayerRank player)
@@ -248,8 +228,8 @@ namespace WinForms
             if (e.Button != MouseButtons.Left || sender == null)
                 return;
 
-            Panel? panelToDrag = sender as Panel;
-            panelToDrag ??= (sender as Control)?.Parent as Panel;
+            PlayerControl? panelToDrag = sender as PlayerControl;
+            panelToDrag ??= (sender as Control)?.Parent as PlayerControl;
 
             if (panelToDrag != null)
             {
@@ -275,7 +255,7 @@ namespace WinForms
             if (_draggedPanel == null || sender == null)
                 return;
 
-            FlowLayoutPanel targetPanel = (FlowLayoutPanel)sender;
+            Panel targetPanel = (Panel)sender;
 
             if (_draggedPanel.Parent != targetPanel)
             {
@@ -306,22 +286,15 @@ namespace WinForms
 
         private void btnToFav_Click(object sender, EventArgs e)
         {
-            List<Panel> panelsToRemove = [];
+            List<PlayerControl> panelsToRemove = [];
             foreach (var obj in flPlayers.Controls)
             {
-                if (obj is Panel panel)
+                if (obj is PlayerControl panel)
                 {
-                    foreach (var pObj in panel.Controls)
+                    if (panel.IsChecked && panel.Tag is string tag)
                     {
-                        if (pObj is CheckBox checkbox)
-                        {
-                            if (checkbox.Checked && panel.Tag is string tag)
-                            {
-                                flFavourites.Controls.Add(CreatePlayerPanel(tag));
-                                panelsToRemove.Add(panel);
-                            }
-                            break;
-                        }
+                        flFavourites.Controls.Add(CreatePlayerPanel(tag));
+                        panelsToRemove.Add(panel);
                     }
                 }
             }
@@ -334,22 +307,15 @@ namespace WinForms
 
         private void btnToPlayers_Click(object sender, EventArgs e)
         {
-            List<Panel> panelsToRemove = [];
+            List<PlayerControl> panelsToRemove = [];
             foreach (var obj in flFavourites.Controls)
             {
-                if (obj is Panel panel)
+                if (obj is PlayerControl panel)
                 {
-                    foreach (var pObj in panel.Controls)
+                    if (panel.IsChecked && panel.Tag is string tag)
                     {
-                        if (pObj is CheckBox checkbox)
-                        {
-                            if (checkbox.Checked && panel.Tag is string tag)
-                            {
-                                flPlayers.Controls.Add(CreatePlayerPanel(tag));
-                                panelsToRemove.Add(panel);
-                            }
-                            break;
-                        }
+                        flPlayers.Controls.Add(CreatePlayerPanel(tag));
+                        panelsToRemove.Add(panel);
                     }
                 }
             }
