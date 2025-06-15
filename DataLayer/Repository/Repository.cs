@@ -15,7 +15,7 @@ namespace DataLayer.Repository
 
         public static Repository Get(Category category)
         {
-            bool loadThroughApi = true;
+            bool loadThroughApi = false;
             return loadThroughApi ? new ApiRepository(category) : new FileRepository(category);
         }
 
@@ -109,6 +109,8 @@ namespace DataLayer.Repository
                 var events = match.AwayTeamEvents.Union(match.HomeTeamEvents);
                 foreach (var e in events)
                 {
+                    if (!rankMap.ContainsKey(e.Player)) continue;
+
                     var rank = rankMap[e.Player];
 
                     if (e.TypeOfEvent == "goal")

@@ -201,13 +201,13 @@ namespace WinForms
             };
 
             var checkBox = new CheckBox();
+            checkBox.Width = 15;
 
             playerPanel.Controls.Add(playerLabel);
             playerPanel.Controls.Add(checkBox);
 
             playerPanel.MouseDown += ItemMouseDown;
             playerLabel.MouseDown += ItemMouseDown;
-            checkBox.MouseDown += ItemMouseDown;
 
             return playerPanel;
         }
@@ -248,7 +248,8 @@ namespace WinForms
             if (e.Button != MouseButtons.Left || sender == null)
                 return;
 
-            Control? panelToDrag = (sender as Control)?.Parent;
+            Panel? panelToDrag = sender as Panel;
+            panelToDrag ??= (sender as Control)?.Parent as Panel;
 
             if (panelToDrag != null)
             {

@@ -12,6 +12,10 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Assets\default.png" />
+    <EmbeddedResource Include="Assets\data\men\matches.json"/>
+    <EmbeddedResource Include="Assets\data\women\matches.json"/>
+    <EmbeddedResource Include="Assets\data\men\results.json"/>
+    <EmbeddedResource Include="Assets\data\women\results.json"/>
   </ItemGroup>
 
 </Project>
