@@ -33,15 +33,15 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <WrapPanel Grid.Row="0" x:Name="HomeGoalie" HorizontalAlignment="Center" ItemHeight="50" ItemWidth="100" Margin="5"/>
-                <WrapPanel Grid.Row="1" x:Name="HomeDefender" HorizontalAlignment="Center" ItemHeight="50" ItemWidth="100" Margin="5" />
-                <WrapPanel Grid.Row="2" x:Name="HomeMidfield" HorizontalAlignment="Center" ItemHeight="50" ItemWidth="100" Margin="5" />
-                <WrapPanel Grid.Row="3" x:Name="HomeForward" HorizontalAlignment="Center" ItemHeight="50" ItemWidth="100" Margin="5" />
+                <WrapPanel Grid.Row="0" x:Name="HomeGoalie" HorizontalAlignment="Center" ItemHeight="Auto" ItemWidth="Auto" Margin="5"/>
+                <WrapPanel Grid.Row="1" x:Name="HomeDefender" HorizontalAlignment="Center" ItemHeight="Auto" ItemWidth="Auto" Margin="5" />
+                <WrapPanel Grid.Row="2" x:Name="HomeMidfield" HorizontalAlignment="Center" ItemHeight="Auto" ItemWidth="Auto" Margin="5" />
+                <WrapPanel Grid.Row="3" x:Name="HomeForward" HorizontalAlignment="Center" ItemHeight="Auto" ItemWidth="Auto" Margin="5" />
 
-                <WrapPanel Grid.Row="5" x:Name="AwayForward" HorizontalAlignment="Center" ItemHeight="50" ItemWidth="100" Margin="5" />
-                <WrapPanel Grid.Row="6" x:Name="AwayMidfield" HorizontalAlignment="Center" ItemHeight="50" ItemWidth="100" Margin="5" />
-                <WrapPanel Grid.Row="7" x:Name="AwayDefender" HorizontalAlignment="Center" ItemHeight="50" ItemWidth="100" Margin="5" />
-                <WrapPanel Grid.Row="8" x:Name="AwayGoalie" HorizontalAlignment="Center" ItemHeight="50" ItemWidth="100" Margin="5" />
+                <WrapPanel Grid.Row="5" x:Name="AwayForward" HorizontalAlignment="Center" ItemHeight="Auto" ItemWidth="Auto" Margin="5" />
+                <WrapPanel Grid.Row="6" x:Name="AwayMidfield" HorizontalAlignment="Center" ItemHeight="Auto" ItemWidth="Auto" Margin="5" />
+                <WrapPanel Grid.Row="7" x:Name="AwayDefender" HorizontalAlignment="Center" ItemHeight="Auto" ItemWidth="Auto" Margin="5" />
+                <WrapPanel Grid.Row="8" x:Name="AwayGoalie" HorizontalAlignment="Center" ItemHeight="Auto" ItemWidth="Auto" Margin="5" />
             </Grid>
 
             <TextBlock x:Name="loadingSpinner" Text="Loading..." Visibility="Collapsed" HorizontalAlignment="Center" FontWeight="Bold" Margin="10"/>
