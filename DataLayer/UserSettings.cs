@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Globalization;
+using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 
 namespace DataLayer
@@ -12,6 +13,22 @@ namespace DataLayer
         {
             settings ??= new UserSettings();
             return settings;
+        }
+
+        public static void ApplyCulture()
+        {
+            CultureInfo cultureInfo;
+            if (UserSettings.GetInstance().SelectedLanguage == UserSettings.Language.Croatian)
+            {
+                cultureInfo = new CultureInfo("hr-HR");
+            }
+            else
+            {
+                cultureInfo = new CultureInfo("en-US");
+            }
+
+            Thread.CurrentThread.CurrentCulture = cultureInfo;
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
         }
 
         public enum Category

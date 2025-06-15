@@ -1,12 +1,11 @@
 using DataLayer;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace WinForms
 {
     internal static class Program
     {
-
-
-
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -28,6 +27,7 @@ namespace WinForms
                 new Form1().ShowDialog();
             }
 
+            UserSettings.ApplyCulture();
 
             Application.Run(new AppForm());
         }

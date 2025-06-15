@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MessageForm));
             label1 = new Label();
             button1 = new Button();
             button2 = new Button();
@@ -35,44 +36,31 @@
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 20F);
-            label1.Location = new Point(44, 67);
+            resources.ApplyResources(label1, "label1");
             label1.Name = "label1";
-            label1.Size = new Size(316, 37);
-            label1.TabIndex = 0;
-            label1.Text = "Do you want to proceed?";
             // 
             // button1
             // 
-            button1.Location = new Point(226, 175);
+            resources.ApplyResources(button1, "button1");
             button1.Name = "button1";
-            button1.Size = new Size(85, 36);
-            button1.TabIndex = 1;
-            button1.Text = "Yes";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
             // button2
             // 
-            button2.Location = new Point(317, 175);
+            resources.ApplyResources(button2, "button2");
             button2.Name = "button2";
-            button2.Size = new Size(85, 36);
-            button2.TabIndex = 2;
-            button2.Text = "No";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
             // MessageForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(408, 223);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(label1);
             Name = "MessageForm";
-            Text = "Message";
             ResumeLayout(false);
             PerformLayout();
         }

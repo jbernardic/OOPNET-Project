@@ -36,7 +36,6 @@ namespace WPF
         public AppWindow()
         {
             InitializeComponent();
-
             LoadData();
         }
 

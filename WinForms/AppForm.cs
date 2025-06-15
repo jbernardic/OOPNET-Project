@@ -321,6 +321,21 @@ namespace WinForms
 
         }
 
+        public void UpdateLocalization(Control form)
+        {
+            ComponentResourceManager resources = new ComponentResourceManager(form.GetType());
+
+            void ApplyResourcesRecursively(Control ctrl)
+            {
+                resources.ApplyResources(ctrl, ctrl.Name, Thread.CurrentThread.CurrentUICulture);
+
+                foreach (Control child in ctrl.Controls)
+                    ApplyResourcesRecursively(child);
+            }
+
+            ApplyResourcesRecursively(form);
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
 
@@ -334,8 +349,11 @@ namespace WinForms
                 settings.FavouriteTeam = null;
                 settings.Save();
 
-                cbFavTeam.Items.Clear();
+                cbFavTeam.DataSource = null;
                 FillTeams();
+
+                UserSettings.ApplyCulture();
+                UpdateLocalization(this);
             }
         }
 
