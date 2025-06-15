@@ -33,7 +33,7 @@ namespace WPF
 
             var assetsPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets");
 
-            var imagePath = ImageHelper.GetPlayerImage(name);
+            var imagePath = ImageHelper.GetPlayerImagePath(name);
             if(imagePath != null)
             {
                 SetPlayerImage(imagePath);

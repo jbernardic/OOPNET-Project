@@ -11,7 +11,7 @@ namespace DataLayer
     public abstract class ImageHelper()
     {
         private static readonly string AssetsPath = PathHelper.GetRelativePath("assets");
-        public static string? GetPlayerImage(string playerName)
+        public static string? GetPlayerImagePath(string playerName)
         {
             try
             {

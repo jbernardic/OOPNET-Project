@@ -32,7 +32,7 @@ namespace DataLayer.Repository
 
             var result = await JsonSerializer.DeserializeAsync<List<Match>>(stream) ?? [];
 
-            return [.. result.Where(match => match.HomeTeam.Code == fifaCode)];
+            return [.. result.Where(match => fifaCode == null || match.HomeTeam.Code == fifaCode)];
         }
 
         public override async Task<List<Result>?> GetResults()
