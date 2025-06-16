@@ -25,9 +25,15 @@ namespace WPF
         {
             InitializeComponent();
 
-            lblTeamInfo.Text = $"{result.Country}\n{result.FifaCode}\n" +
-                $"{result.GamesPlayed}/{result.Wins}/{result.Losses}/{result.Draws}\n" +
-                $"{result.GoalsFor}/{result.GoalsAgainst}/{result.GoalDifferential}";
+            lblCountry.Text = result.Country;
+            lblFifaCode.Text = result.FifaCode;
+            lblGamesPlayed.Text = result.GamesPlayed.ToString();
+            lblWins.Text = result.Wins.ToString();
+            lblLosses.Text = result.Losses.ToString();
+            lblDraws.Text = result.Draws.ToString();
+            lblGoalsFor.Text = result.GoalsFor.ToString();
+            lblGoalsAgainst.Text = result.GoalsAgainst.ToString();
+            lblGoalDifferential.Text = result.GoalDifferential.ToString();
 
             Loaded += Window_Loaded;
         }

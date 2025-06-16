@@ -7,6 +7,28 @@
         mc:Ignorable="d"
         Title="PlayerWindow" Height="450" Width="800">
     <Grid Margin="10">
-        <TextBlock x:Name="lblInfo" TextWrapping="Wrap"/>
+        <StackPanel>
+            <TextBlock x:Name="lblPlayerName" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="Shirt Number: " FontWeight="Bold"/>
+                <TextBlock x:Name="lblShirtNumber"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="Captain: " FontWeight="Bold"/>
+                <TextBlock x:Name="lblCaptain"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="Goals: " FontWeight="Bold"/>
+                <TextBlock x:Name="lblGoals"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="Yellow Cards: " FontWeight="Bold"/>
+                <TextBlock x:Name="lblYellowCards"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>

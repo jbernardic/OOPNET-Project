@@ -28,8 +28,11 @@ namespace WPF
 
             var stats = match.GetPlayerStats(player);
 
-            lblInfo.Text = $"{player.Name}\n{player.ShirtNumber}\nCaptain? {player.Captain}\nGoals: {stats.GoalCount}\n" +
-                $"Yellow cards: {stats.YellowCardCount}";
+            lblPlayerName.Text = player.Name;
+            lblShirtNumber.Text = player.ShirtNumber.ToString();
+            lblCaptain.Text = player.Captain ? "Yes" : "No";
+            lblGoals.Text = stats.GoalCount.ToString();
+            lblYellowCards.Text = stats.YellowCardCount.ToString();
 
             Loaded += Window_Loaded;
         }

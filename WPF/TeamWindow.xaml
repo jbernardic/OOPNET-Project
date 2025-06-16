@@ -10,6 +10,48 @@
         <Grid.LayoutTransform>
             <ScaleTransform x:Name="ScaleEffect" ScaleX="0.7" ScaleY="0.7"/>
         </Grid.LayoutTransform>
-        <TextBlock x:Name="lblTeamInfo" TextWrapping="Wrap"/>
+        <StackPanel>
+            <TextBlock x:Name="lblCountry" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="FIFA Code: " FontWeight="Bold"/>
+                <TextBlock x:Name="lblFifaCode"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="Games Played: " FontWeight="Bold"/>
+                <TextBlock x:Name="lblGamesPlayed"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="Wins: " FontWeight="Bold"/>
+                <TextBlock x:Name="lblWins"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="Losses: " FontWeight="Bold"/>
+                <TextBlock x:Name="lblLosses"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="Draws: " FontWeight="Bold"/>
+                <TextBlock x:Name="lblDraws"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="Goals For: " FontWeight="Bold"/>
+                <TextBlock x:Name="lblGoalsFor"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="Goals Against: " FontWeight="Bold"/>
+                <TextBlock x:Name="lblGoalsAgainst"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="Goal Differential: " FontWeight="Bold"/>
+                <TextBlock x:Name="lblGoalDifferential"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>
